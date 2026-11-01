@@ -1,12 +1,7 @@
-apiVersion: kustomize.config.k8s.io/v1beta1
-kind: Kustomization
-resources:
-  - ../../base
 images:
-  - name: ghcr.io/leofvo/lab404-web
+  - name: ghcr.io/surina-margarita/lab404-web
     newName: ghcr.io/surina-margarita/lab404-web
-    newTag: latest
-  - name: ghcr.io/leofvo/lab404-votes
+    digest: sha256:baa33bb2d1ea72b3adbf2c7c7f00b0a98196326d78fe34cfada0d9fd5c134499
+  - name: ghcr.io/surina-margarita/lab404-votes
     newName: ghcr.io/surina-margarita/lab404-votes
-    newTag: latest
-
+    digest: sha256:c395c7f9f604df80f7289af6a409862761b9ae754f0612f94d8fcf65a14cd30a
