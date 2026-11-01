@@ -1,3 +1,10 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+resources:
+  - ../../base
+  - require-images-digests.yml
+  - verify-signatures.yml
+
 images:
   - name: ghcr.io/surina-margarita/lab404-web
     newName: ghcr.io/surina-margarita/lab404-web
@@ -5,3 +12,10 @@ images:
   - name: ghcr.io/surina-margarita/lab404-votes
     newName: ghcr.io/surina-margarita/lab404-votes
     digest: sha256:c395c7f9f604df80f7289af6a409862761b9ae754f0612f94d8fcf65a14cd30a
+
+  - name: nginx
+    newName: docker.io/library/nginx
+    digest: sha256:785835ea65db4bba6f021acc0f3be91b0fef76a53fe41f8588c6698d2aed0606
+  - name: valkey/valkey
+    newName: docker.io/valkey/valkey
+    digest: sha256:a038175878d66b9d274fbf8be73c0305e93798b83917647f167e18cef3c71eec

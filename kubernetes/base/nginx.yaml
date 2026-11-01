@@ -18,12 +18,52 @@ spec:
         app.kubernetes.io/component: proxy
         app.kubernetes.io/part-of: lab404
     spec:
+      automountServiceAccountToken: false
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 101 
+        seccompProfile:
+          type: RuntimeDefault
       containers:
         - name: nginx
-          image: nginx:latest
+          image: nginx:1.30.3-alpine
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+          resources:
+            requests:
+              cpu: "10m"
+              memory: "16Mi"
+            limits:
+              cpu: "100m"
+              memory: "64Mi"
           ports:
             - name: http
               containerPort: 80
+          volumeMounts:
+            - name: configuration
+              mountPath: /etc/nginx/nginx.conf
+              subPath: nginx.conf
+              readOnly: true
+            - name: nginx-cache
+              mountPath: /var/cache/nginx
+            - name: nginx-run
+              mountPath: /var/run
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: configuration
+          configMap:
+            name: nginx
+        - name: nginx-cache
+          emptyDir: {}
+        - name: nginx-run
+          emptyDir: {}
+        - name: tmp
+          emptyDir: {}
 ---
 apiVersion: v1
 kind: Service
