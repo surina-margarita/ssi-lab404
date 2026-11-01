@@ -1,4 +1,7 @@
 __pycache__/
 *.pyc
 .venv/
-
+.git
+.gitignore
+*.md
+test_app.py

@@ -1,2 +1,6 @@
 votes
-
+.git
+.gitignore
+*.md
+main_test.go
+mise.toml
