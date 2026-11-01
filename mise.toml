@@ -17,10 +17,13 @@ echo "Required tools are available."
 description = "Run votes tests"
 run = "mise -C apps/votes run test"
 
-[tasks.test-web]
-description = "Run web tests"
-dir = "apps/web"
-run = ".venv/bin/python -m unittest -v"
+[tasks."test-web"]
+run = """
+cd apps/web
+python -m venv .venv
+.venv/bin/pip install -r requirements.txt
+.venv/bin/python -m unittest -v
+"""
 
 [tasks.test]
 description = "Run all application tests"
